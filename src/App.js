@@ -1,12 +1,16 @@
-import React from "react"
+
+import React from "react";
+
+import CoinWallet from "../src/components/CoinWallet"
+
+
 
 
 const  App = () => {
   return (
     <div className="container">
-      <header className="App-header">
-       Soda Machine
-      </header>
+      
+      <CoinWallet />
     </div>
   );
 }
