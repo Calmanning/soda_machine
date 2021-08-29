@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import "./styles.scss"
+
 const index = ({ color, onClick, text }) => {
 
   return (

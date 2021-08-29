@@ -9,7 +9,6 @@ import CoinWallet from "../src/components/CoinWallet"
 const  App = () => {
   return (
     <div className="container">
-      
       <CoinWallet />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-
-import "../CoinWallet/styles.scss"
+import Button from "../Button/"
+import "./styles.scss"
 
 const CoinWallet = () => {
 
@@ -31,9 +31,15 @@ const CoinWallet = () => {
     <div className="wallet">
       <header>Available Coins</header>
       <div className="coins">
-        {currency.map(coins => (
+        {currency.map(coin => (
           <div className="coin">
-            <p>$ {coins.value}</p>
+            <p>$ {coin.value}</p>
+            <Button 
+              key={coin.name}
+              value={coin.value}
+              text={coin.available}
+              color={"darkgreen"}
+              />
           
           </div>
         ))}
