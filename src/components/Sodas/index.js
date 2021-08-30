@@ -3,31 +3,7 @@ import Button from "../Button";
 
 import "./styles.scss";
 
-const Sodas = () => {
-
-  const sodaInventory = [
-    {
-      id:4,
-      name: "Coke",
-      cost: 0.25,
-      available: 5,
-      color: "red"
-    },
-    {
-      id: 5,
-      name: "Pepsi",
-      cost: 0.36,
-      available: 15,
-      color: "navy"
-    },
-    {
-      id: 6, 
-      name: "Soda",
-      cost: 0.45,
-      available: 3,
-      color: "black"
-    }
-  ]
+const Sodas = ({ sodaInventory }) => {
 
   return (
     <div className="sodaList">
