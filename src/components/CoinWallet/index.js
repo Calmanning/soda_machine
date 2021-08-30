@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
-
 import Button from "../Button/"
 
 import "./styles.scss"
 
 const CoinWallet = ({ currency, onClick }) => {
 
+  
   return (
     <div className="wallet">
       <header>Available Coins</header>
