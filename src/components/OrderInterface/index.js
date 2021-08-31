@@ -1,31 +1,32 @@
-import React from "react";
 import Button from "../Button"
 
-import CoinWallet from "../CoinWallet/";
-import Sodas from "../Sodas/";
+import sodaInventory from "../Sodas/"
 
 import "./styles.scss"
 
-const OrderInterface = ({ CoinWallet, Sodas }) => {
-
-  const orderInfo = {
-      total: 0.00,
-      //Currently default is the solution, but I should find a way to get 0.00 to apear as a number -- it currently floats(rounds)
-      default: "0.00",
-      drinksOrdered: 0
-  }
+const OrderInterface = ({ orderInformation, sodaInventory, orderReturn, getReciept }) => {
 
   return (
     <div className="orders">
-      <p>Ordering Information Placeholder</p>
+      <p>Current Amount</p>
       <p className="currentFunds">
-        {orderInfo.default}
+        ${orderInformation.total.toFixed(2)}
       </p>
       <p>
-        Drinks ordered: {orderInfo.drinksOrdered}
+        Total drinks ordered:
+        {orderInformation.drinksOrdered}
       </p>
-      <Button text={"Get Drinks"} />
-  </div>
+      <Button
+        text={orderInformation.drinksOrdered === 0 ?
+          "Order a drink" :
+          "Get Drinks"}
+        disabled={orderInformation.drinksOrdered === 0}
+        onClick={getReciept}
+        color={orderInformation.drinksOrdered === 0 ?
+          "grey" : 
+          "steelblue"}
+      />
+    </div>
   )
 }
 

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import CoinWallet from "../src/components/CoinWallet"
 import Sodas from "../src/components/Sodas"
 import OrderInterface from "../src/components/OrderInterface"
+import Reciept from "../src/components/Reciept"
 
 
-const  App = ({}) => {
+const App = () => {
+
   const [currency, setCurrency] = useState([
     {
       id: 0,
@@ -35,7 +37,7 @@ const  App = ({}) => {
 
   const [sodaInventory, setSodaInventory] = useState([
     {
-      id:4,
+      id: 4,
       name: "Coke",
       cost: 0.25,
       available: 5,
@@ -49,7 +51,7 @@ const  App = ({}) => {
       color: "navy"
     },
     {
-      id: 6, 
+      id: 6,
       name: "Soda",
       cost: 0.45,
       available: 3,
@@ -57,17 +59,171 @@ const  App = ({}) => {
     }
   ])
 
-  const test = (value) =>{
-    console.log(value)
-    console.log(test)
-    setCurrency(currency.filter((coin) => currency.value !== value))
+  const [orderInformation, setOrderInformation] = useState(
+    {
+      total: 0.00,
+      drinksOrdered: 0
+    }
+  )
+
+  const [orderReturn, setOrderReturn] = useState([
+    {
+      id: 7,
+      name: "Coke",
+      quantity: 0,
+    },
+    {
+      id: 8,
+      name: "Pepsi",
+      quantity: 0,
+    },
+    {
+      id: 9,
+      name: "Soda",
+      quantity: 0,
+    },
+  ]
+  )
+
+//==================================
+//  End of Object Placeholders
+//==================================
+
+//==================================
+//  Start functions for props
+//==================================
+
+//add money to the machine
+  const addCurrency = (id, value, available) => {
+    console.log("adding money from", id)
+    console.log("one day we'll add " + value + " to the vending machine.")
+    
+    setCurrency(
+        currency.map((coin) => coin.id === id ? 
+                               coin.available > 0 ? 
+                               {...coin, available: --coin.available} 
+                               : coin 
+                               : coin
+                               )
+    )
+    
+    setOrderInformation({
+      ...orderInformation,
+      total : orderInformation.total + parseFloat(parseFloat(value).toFixed(2))
+    })
+  }
+
+  const addDrinks = (id, name, cost, available) => {
+    console.log("adding a soda, how about some ", name)
+    
+    if( orderInformation.total >= cost ) {
+      
+      setSodaInventory(
+        sodaInventory.map((soda) => soda.id === id ? 
+        soda.available > 0 ? 
+        {...soda, available: --soda.available} 
+        : soda 
+        : soda)
+        )
+        
+        setOrderInformation({
+          ...orderInformation,
+          drinksOrdered : ++orderInformation.drinksOrdered,
+          total : orderInformation.total - cost
+        })
+        
+        setOrderReturn(
+          orderReturn.map((drink) => drink.name === name ?
+          {...drink, quantity: ++drink.quantity}
+          : drink
+          ))
+        } else {
+          alert("Not enough money. Please insert more coins.")
+        }
+        
+      }
+
+  const getReciept = () => {
+    let { total } = orderInformation;
+    total = total.toFixed(2);
+
+    let change = {
+      penny: 0,
+      knickel: 0,
+      dime: 0,
+      quarter: 0,
+    }
+    console.log(total)
+
+    while(total > 0){
+      if(total >= 0.25){
+        total = total -0.25
+        change.quarter = ++change.quarter
+      } else if (total >= 0.10){
+        total = total - 0.10
+        change.dime = ++change.dime
+      } else if (total >= 0.05){
+        total= total - 0.05
+        change.knickel = ++change.knickel
+      } else {
+        change.penny = Math.floor(total*100)
+        total = 0
+      } 
+    }
+
+    const breakdown = Object.entries(change).map(([coin, amt]) => `${coin}: ${amt}`)
+                      .join("\n");
+
+    const drinks = orderReturn.filter((order) => order.quantity > 0)
+                   .map((order) => `${order.name}: ${order.quantity}`)
+                   .join("\n");
+        
+  
+    console.log(change)
+    alert(drinks + '\n' + breakdown)
+
+    setOrderInformation({
+      total: 0.00,
+      drinksOrdered: 0
+    })
+
+    setSodaInventory(
+      sodaInventory.map(soda => soda.id === 4 ? 
+        {...soda, available: 5}
+        : soda.id === 5 ?
+        {...soda, available: 15}
+        : {...soda, available: 3}
+        )
+    )
+    
+    setCurrency(
+      currency.map(coin => coin.id === 0 ? 
+        {...coin, available: 100}
+        : coin.id === 1 ?
+        {...coin, available: 10}
+        : coin.id === 2?
+        {...coin, available: 5}
+        : {...coin, available: 25}
+        )
+    )
+    
   }
 
   return (
     <div className="container">
-      <CoinWallet currency={currency} onClick={test}/>
-      <Sodas sodaInventory={sodaInventory}/>
-      <OrderInterface />
+      <CoinWallet 
+        currency={currency}
+        addMoney={addCurrency}
+      />
+      <Sodas 
+        sodaInventory={sodaInventory}
+        addDrinks={addDrinks}
+      />
+      <OrderInterface 
+        orderInformation={orderInformation}
+        orderReturn={orderReturn}
+        getReciept={getReciept} 
+        />
     </div>
   );
 }
