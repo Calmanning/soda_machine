@@ -155,6 +155,7 @@ const App = () => {
     total = total.toFixed(2);
 
     let change = {
+      change: orderInformation.total,
       penny: 0,
       knickel: 0,
       dime: 0,

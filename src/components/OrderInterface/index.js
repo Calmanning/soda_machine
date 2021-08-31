@@ -13,8 +13,7 @@ const OrderInterface = ({ orderInformation, sodaInventory, orderReturn, getRecie
         ${orderInformation.total.toFixed(2)}
       </p>
       <p>
-        Total drinks ordered:
-        {orderInformation.drinksOrdered}
+        Total drinks ordered: {orderInformation.drinksOrdered}
       </p>
       <Button
         text={orderInformation.drinksOrdered === 0 ?
