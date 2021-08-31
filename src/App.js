@@ -81,7 +81,7 @@ const App = () => {
       id: 9,
       name: "Soda",
       quantity: 0,
-    },
+    }
   ]
   )
 
@@ -193,6 +193,13 @@ const App = () => {
       total: 0.00,
       drinksOrdered: 0
     })
+
+    setOrderObject(
+      orderObject.map(soda => soda.quantity > 0?
+                      {...soda, quantity: 0}
+                      : soda
+                      )
+    )
 
     setSodaInventory(
       sodaInventory.map(soda => soda.id === 4 ? 
