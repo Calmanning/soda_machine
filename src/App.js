@@ -66,7 +66,7 @@ const App = () => {
     }
   )
 
-  const [orderReturn, setOrderReturn] = useState([
+  const [orderObject, setOrderObject] = useState([
     {
       id: 7,
       name: "Coke",
@@ -90,13 +90,18 @@ const App = () => {
 //==================================
 
 //==================================
-//  Start functions for props
+//  Start functions for 
 //==================================
 
 //add money to the machine
-  const addCurrency = (id, value, available) => {
+  const addMoney = (id, value, available) => {
     console.log("adding money from", id)
     console.log("one day we'll add " + value + " to the vending machine.")
+    
+    setOrderInformation({
+      ...orderInformation,
+      total : orderInformation.total + parseFloat(parseFloat(value).toFixed(2))
+    })
     
     setCurrency(
         currency.map((coin) => coin.id === id ? 
@@ -107,16 +112,15 @@ const App = () => {
                                )
     )
     
-    setOrderInformation({
-      ...orderInformation,
-      total : orderInformation.total + parseFloat(parseFloat(value).toFixed(2))
-    })
+    console.log(orderInformation)
   }
 
-  const addDrinks = (id, name, cost, available) => {
+  const addSoda = (id, name, cost, available) => {
     console.log("adding a soda, how about some ", name)
     
-    if( orderInformation.total >= cost ) {
+    const roundedTotal = parseFloat(parseFloat(orderInformation.total).toFixed(2))
+
+    if( roundedTotal >= cost ) {
       
       setSodaInventory(
         sodaInventory.map((soda) => soda.id === id ? 
@@ -129,15 +133,18 @@ const App = () => {
         setOrderInformation({
           ...orderInformation,
           drinksOrdered : ++orderInformation.drinksOrdered,
-          total : orderInformation.total - cost
+          total : roundedTotal - cost
         })
-        
-        setOrderReturn(
-          orderReturn.map((drink) => drink.name === name ?
+        console.log(orderInformation.total)
+
+        setOrderObject(
+          orderObject.map((drink) => drink.name === name ?
           {...drink, quantity: ++drink.quantity}
           : drink
           ))
         } else {
+          console.log(orderInformation.total)
+          console.log(cost)
           alert("Not enough money. Please insert more coins.")
         }
         
@@ -174,7 +181,7 @@ const App = () => {
     const breakdown = Object.entries(change).map(([coin, amt]) => `${coin}: ${amt}`)
                       .join("\n");
 
-    const drinks = orderReturn.filter((order) => order.quantity > 0)
+    const drinks = orderObject.filter((order) => order.quantity > 0)
                    .map((order) => `${order.name}: ${order.quantity}`)
                    .join("\n");
         
@@ -213,15 +220,15 @@ const App = () => {
     <div className="container">
       <CoinWallet 
         currency={currency}
-        addMoney={addCurrency}
+        addMoney={addMoney}
       />
       <Sodas 
         sodaInventory={sodaInventory}
-        addDrinks={addDrinks}
+        addSoda={addSoda}
       />
       <OrderInterface 
         orderInformation={orderInformation}
-        orderReturn={orderReturn}
+        orderObject={orderObject}
         getReciept={getReciept} 
         />
     </div>
