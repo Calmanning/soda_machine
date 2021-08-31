@@ -10,6 +10,10 @@
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+  
+  &:disabled{
+    cursor: default;
+  }
 }
 
 .button:focus {
@@ -19,4 +23,5 @@
 .button:active {
   transform: scale(0.98);
 }
+
 

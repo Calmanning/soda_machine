@@ -2,22 +2,22 @@ import Button from "../Button/"
 
 import "./styles.scss"
 
-const CoinWallet = ({ currency, onClick }) => {
+const CoinWallet = ({ currency, addMoney }) => {
 
-  
   return (
     <div className="wallet">
       <header>Available Coins</header>
       <div className="coins">
-        {currency.map(coin => (
+        {currency.map((coin) => (
           <div className="coin">
-            <p>$ {coin.value}</p>
+            <p>$ {coin.value.toFixed(2)}</p>
             <Button 
               key={coin.id}
               value={coin.value}
               text={coin.available}
-              color={"darkgreen"}
-              onClick={onClick}
+              color={coin.available === 0 ? "grey" : "darkgreen"}
+              onClick={() => addMoney(coin.id, coin.value, coin.available)}
+              disabled = {coin.available === 0}
               />
           </div>
           ))
