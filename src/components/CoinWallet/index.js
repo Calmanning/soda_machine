@@ -2,13 +2,13 @@ import Button from "../Button/"
 
 import "./styles.scss"
 
-const CoinWallet = ({ currency, addMoney }) => {
+const CoinWallet = ({ wallet, addMoney }) => {
 
   return (
     <div className="wallet">
       <header>Available Coins</header>
       <div className="coins">
-        {currency.map((coin) => (
+        {wallet.map((coin) => (
           <div className="coin">
             <p>$ {coin.value.toFixed(2)}</p>
             <Button 

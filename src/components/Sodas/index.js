@@ -2,7 +2,7 @@ import Button from "../Button";
 
 import "./styles.scss";
 
-const Sodas = ({ sodaInventory, addSoda}) => {
+const Sodas = ({ sodaInventory, addSoda }) => {
 
   return (
     <div className="sodaList">
@@ -25,4 +25,4 @@ const Sodas = ({ sodaInventory, addSoda}) => {
   )
 }
 
-export default Sodas
+export default Sodas;
