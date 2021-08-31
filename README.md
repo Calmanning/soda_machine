@@ -1,7 +1,7 @@
 # Soda_Machine
-![Last Commit](https://img.shields.io/github/last-commit/desasser/dungen-frontend)
-![Language Count](https://img.shields.io/github/languages/count/desasser/dungen-frontend)
-![Top Language](https://img.shields.io/github/languages/top/desasser/dungen-frontend)
+![Last Commit](https://img.shields.io/github/last-commit/calmanning/soda_machine)
+![Language Count](https://img.shields.io/github/languages/count/calmanning/soda_machine)
+![Top Language](https://img.shields.io/github/languages/top/calmanning/soda_machine)
 
 ## Description
 A simple soda vending machine that will recieve money, drink orders, and return a reciept containing the ordered drinks and the associated change.
