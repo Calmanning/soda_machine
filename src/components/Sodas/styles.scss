@@ -4,11 +4,17 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-   
   border: 2px solid blue;
+  margin: auto;
+  
+  .soda{
+    // border: 2px solid salmon;
+    margin: 10px 10px auto;
+  }
+  
+  p {
+    display: flex;
+    justify-content: center;
+  }
 }
 
-p {
-  display: flex;
-  justify-content: center;
-}
