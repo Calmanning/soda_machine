@@ -28,4 +28,4 @@ Please get in touch with me if you wanted to push any code. You are of course we
 none included
 
 ### Questions
-- Find me on Github: [Calvin](https://github.com/Calmanning)
+- You can find me on Github, if you like! [Calvin](https://github.com/Calmanning)
