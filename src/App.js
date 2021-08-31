@@ -211,6 +211,7 @@ const App = () => {
         : soda
       )
     )
+    
     //restocking/resetting the sodas in the machine    
     setSodaInventory(
       sodaInventory.map(soda => soda.id === 4 ?
@@ -235,6 +236,47 @@ const App = () => {
 
   }
 
+  //A simple "refund" function. When the "cancel order" button in clicked, all information is returned to its original state.
+  const cancelOrder = () => {
+    console.log("test")
+    setOrderInformation({
+      total: 0.00,
+      drinksOrdered: 0
+    })
+
+    //resetting the sodas ordered.
+    setOrderObject(
+      orderObject.map(soda => soda.quantity > 0 ?
+        { ...soda, quantity: 0 }
+        : soda
+      )
+    )
+    //restocking/resetting the sodas in the machine    
+    setSodaInventory(
+      sodaInventory.map(soda => soda.id === 4 ?
+        { ...soda, available: 5 }
+        : soda.id === 5 ?
+          { ...soda, available: 15 }
+          : { ...soda, available: 3 }
+      )
+    )
+    
+    //resetting the wallet information
+    setWallet(
+      wallet.map(coin => coin.id === 0 ?
+        { ...coin, available: 100 }
+        : coin.id === 1 ?
+          { ...coin, available: 10 }
+          : coin.id === 2 ?
+            { ...coin, available: 5 }
+            : { ...coin, available: 25 }
+      )
+    )
+
+    alert("Your order has been cancelled.")
+
+  }
+
   //this is where the components are rendered for user view and information from the app level may be pass on to them.
   return (
     <div className="container">
@@ -250,6 +292,7 @@ const App = () => {
         orderInformation={orderInformation}
         orderObject={orderObject}
         getReciept={getReciept}
+        cancelOrder={cancelOrder}
       />
     </div>
   );
